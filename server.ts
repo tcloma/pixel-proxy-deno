@@ -5,15 +5,10 @@ import {
    helpers,
 } from 'https://deno.land/x/oak@v11.1.0/mod.ts';
 
-const app = new Application();
-const router = new Router();
-
 const appPort = Deno.env.get('PORT');
 const baseUrl = Deno.env.get('API_URL');
 
-app.use(router.routes());
-app.use(oakCors());
-
+const router = new Router();
 router.get('/', (context) => {
    context.response.body = { message: 'Hello World!' };
 });
@@ -30,6 +25,10 @@ router.get('/json/custom', async (context) => {
    );
    context.response.body = await data.json();
 });
+
+const app = new Application();
+app.use(oakCors());
+app.use(router.routes());
 
 console.log(`🪐 Server listening at http://localhost:${appPort} ✨`);
 await app.listen({ port: parseInt(appPort as string) });
