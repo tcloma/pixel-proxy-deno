@@ -19,11 +19,32 @@ router.get('/json/random', async (context) => {
 });
 
 router.get('/json/custom', async (context) => {
-   const { primaryColor, secondaryColor, fillType } = helpers.getQuery(context);
+   const {
+      primaryColor = 'FFFFFF',
+      secondaryColor = 'FFFFFF',
+      fillType = '0',
+   } = helpers.getQuery(context);
    const data = await fetch(
       `${baseUrl}/basic/svgmonsters/json?primaryColor=%23${primaryColor}&secondaryColor=%23${secondaryColor}&fillType=${fillType}`
    );
    context.response.body = await data.json();
+});
+
+router.get('/svg/random', async (context) => {
+   const data = await fetch(`${baseUrl}/v2/basic/svgmonsters?saturation=0.5`);
+   context.response.body = await data.text();
+});
+
+router.get('/svg/custom', async (context) => {
+   const {
+      saturation = 0.5,
+      colorVariations = 1,
+      edgeBrightness = 0.5,
+   } = helpers.getQuery(context);
+   const data = await fetch(
+      `${baseUrl}/v2/basic/svgmonsters?saturation=${saturation}&colorVariations=${colorVariations}&edgeBrightness=${edgeBrightness}`
+   );
+   context.response.body = await data.text();
 });
 
 const app = new Application();
