@@ -1,4 +1,4 @@
-// import "https://deno.land/x/dotenv@v3.2.0/load.ts";
+// import 'https://deno.land/x/dotenv@v3.2.0/load.ts';
 import { oakCors } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 import {
    Application,
@@ -9,9 +9,31 @@ import {
 const appPort = Deno.env.get('PORT');
 const baseUrl = Deno.env.get('API_URL');
 
+const startMessage = {
+   details: { api: 'pixel-encounter-proxy', author: 'tcloma' },
+   apiRoutes: {
+      '/json/random': { params: 'none' },
+      '/json/custom': {
+         params: {
+            primaryColor: 'string',
+            secondaryColor: 'string',
+            fillType: 'number (0 - 4)',
+         },
+      },
+      '/svg/random': { params: 'none' },
+      '/svg/custom': {
+         params: {
+            saturation: 'number (< 1)',
+            colorVariations: 'number (< 1)',
+            edge: 'number (< 1)',
+         },
+      },
+   },
+};
+
 const router = new Router();
 router.get('/', (context) => {
-   context.response.body = { message: 'Hello World!' };
+   context.response.body = startMessage;
 });
 
 router.get('/json/random', async (context) => {
