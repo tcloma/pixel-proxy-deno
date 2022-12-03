@@ -8,7 +8,7 @@ import { oakCors } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 const app = new Application();
 const router = new Router();
 
-const appPort = parseInt(Deno.env.get('PORT') as string);
+const appPort = Deno.env.get('PORT');
 const baseUrl = Deno.env.get('API_URL');
 
 router.get('/', (context) => {
