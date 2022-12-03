@@ -5,9 +5,7 @@ const app = express();
 app.use(cors());
 
 const port = Deno.env.get('PORT');
-const baseUrl = 'https://app.pixelencounter.com/api';
-
-console.log(Deno.env.get('PORT'));
+const baseUrl = Deno.env.get('API_URL');
 
 app.get('/', (_req, res) => {
    res.send({ message: 'Hello from Proxy! 👋' });
