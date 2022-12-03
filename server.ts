@@ -1,4 +1,3 @@
-import 'https://deno.land/x/dotenv@v3.2.0/load.ts';
 import { oakCors } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 import {
    Application,
